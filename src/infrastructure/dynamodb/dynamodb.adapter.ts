@@ -12,6 +12,8 @@ import {
   GetCommand,
   PutCommand,
   ScanCommand,
+  UpdateCommand,
+  UpdateCommandOutput,
 } from '@aws-sdk/lib-dynamodb';
 
 @Injectable()
@@ -27,6 +29,21 @@ export class DynamoDBAdapter {
       },
     });
     this.client = DynamoDBDocumentClient.from(dbClient);
+  }
+
+  async getAllItems(tableName: string): Promise<ScanOutput[]> {
+    try {
+      const command = new ScanCommand({
+        TableName: tableName,
+      });
+
+      const response = await this.client.send(command);
+      return response?.Items;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Ha ocurrido un error al obtener todos los elementos de dynamo.',
+      );
+    }
   }
 
   async getItem(
@@ -67,19 +84,27 @@ export class DynamoDBAdapter {
     }
   }
 
-  async getAllItems(tableName: string): Promise<ScanOutput[]> {
+  async updateItem(
+    key: { [key: string]: any },
+    tableName: string,
+    updateExpression: string,
+    expressionAttributeValues: { [key: string]: any },
+    expressionAttributeNames: { [key: string]: any },
+  ): Promise<UpdateCommandOutput> {
     try {
-      const command = new ScanCommand({
+      const command = new UpdateCommand({
         TableName: tableName,
+        Key: key,
+        UpdateExpression: updateExpression,
+        ExpressionAttributeNames: expressionAttributeNames,
+        ExpressionAttributeValues: expressionAttributeValues,
+        ReturnValues: 'UPDATED_NEW',
       });
 
-      const response = await this.client.send(command);
-      return response?.Items;
+      return await this.client.send(command);
     } catch (error) {
-      console.log('e', error);
-
       throw new InternalServerErrorException(
-        'Ha ocurrido un error al obtener todos los elementos de dynamo.',
+        'Ha ocurrido un error al actualizar el elemento en DynamoDB.',
       );
     }
   }
