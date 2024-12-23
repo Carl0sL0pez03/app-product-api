@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 import { PutItemCommandOutput } from '@aws-sdk/client-dynamodb';
-
-import { IClientRepository } from 'src/application/clients/ports/clientRepository.ports';
-import { DynamoDBAdapter } from '../dynamodb/dynamodb.adapter';
-import { CreateClientDto } from 'src/application/clients/dto/create-client.dto';
-import { dateFunctionSave } from 'src/function/dateFunction';
 import { NativeAttributeValue } from '@aws-sdk/lib-dynamodb';
+
+import { IClientRepository } from '../../application/clients/ports/clientRepository.ports';
+import { DynamoDBAdapter } from '../dynamodb/dynamodb.adapter';
+import { CreateClientDto } from '../../application/clients/dto/create-client.dto';
+import { dateFunctionSave } from '../../function/dateFunction';
 
 export class DynamoDBClientRepository implements IClientRepository {
   constructor(private dynamoDBAdapter: DynamoDBAdapter) {}

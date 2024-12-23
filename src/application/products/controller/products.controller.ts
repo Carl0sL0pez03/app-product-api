@@ -2,8 +2,8 @@ import { Controller, Get, Res } from '@nestjs/common';
 
 import { Response } from 'express';
 
-import { DynamoDBAdapter } from 'src/infrastructure/dynamodb/dynamodb.adapter';
-import { DynamoDBProductRespository } from 'src/infrastructure/product/dynamoDBProductRepository.adapter';
+import { DynamoDBAdapter } from '../../../infrastructure/dynamodb/dynamodb.adapter';
+import { DynamoDBProductRespository } from '../../../infrastructure/product/dynamoDBProductRepository.adapter';
 import { GetAllProductsInteractor } from '../interactors';
 
 @Controller('api/products')

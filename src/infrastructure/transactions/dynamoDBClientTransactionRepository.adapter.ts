@@ -3,10 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { DynamoDBAdapter } from '../dynamodb/dynamodb.adapter';
 
-import { ITransactionRepository } from 'src/application/transactions/ports/transactionRepository.ports';
-import { CreateTransactionDto } from 'src/application/transactions/dto/create-transaction.dto';
-import { dateFunctionSave } from 'src/function/dateFunction';
-import { StateTransactions } from 'src/constant/stateTransactions.constant';
+import { ITransactionRepository } from '../../application/transactions/ports/transactionRepository.ports';
+import { CreateTransactionDto } from '../../application/transactions/dto/create-transaction.dto';
+import { dateFunctionSave } from '../../function/dateFunction';
+import { StateTransactions } from '../../constant/stateTransactions.constant';
 
 export class DynamoDBTransactionRepository implements ITransactionRepository {
   constructor(private dynamoDBAdapter: DynamoDBAdapter) {}

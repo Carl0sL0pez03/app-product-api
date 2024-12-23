@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 
 import { EnsureClientInteractor } from '../interactor/ensureClient.interactor';
-import { DynamoDBClientRepository } from 'src/infrastructure/client/dynamoDBClientRepository.adapter';
-import { DynamoDBAdapter } from 'src/infrastructure/dynamodb/dynamodb.adapter';
+import { DynamoDBClientRepository } from '../../../infrastructure/client/dynamoDBClientRepository.adapter';
+import { DynamoDBAdapter } from '../../../infrastructure/dynamodb/dynamodb.adapter';
 
 @Injectable()
 export class CreateClientInterceptor implements NestInterceptor {
