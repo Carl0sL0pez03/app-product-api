@@ -6,10 +6,10 @@ export class CreateClientDto {
   _id?: string;
 
   @IsString()
-  name: string;
+  nameClient: string;
 
   @Transform(({ value }) => new Date(value))
   @IsOptional()
   @IsDate()
-  createdAt: Date;
+  createdAt?: Date;
 }

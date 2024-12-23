@@ -2,15 +2,15 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 import {
   DynamoDBClient,
-  GetItemOutput,
   PutItemCommandOutput,
   ScanOutput,
 } from '@aws-sdk/client-dynamodb';
 
 import {
   DynamoDBDocumentClient,
-  GetCommand,
+  NativeAttributeValue,
   PutCommand,
+  QueryCommand,
   ScanCommand,
   UpdateCommand,
   UpdateCommandOutput,
@@ -47,17 +47,20 @@ export class DynamoDBAdapter {
   }
 
   async getItem(
-    key: { [key: string]: any },
+    name: string,
     tableName: string,
-  ): Promise<GetItemOutput> {
+  ): Promise<Record<string, NativeAttributeValue>[]> {
     try {
-      const command = new GetCommand({
+      const command = new QueryCommand({
         TableName: tableName,
-        Key: key,
+        KeyConditionExpression: 'nameClient = :nameValue',
+        ExpressionAttributeValues: {
+          ':nameValue': name,
+        },
       });
 
       const response = await this.client.send(command);
-      return response?.Item;
+      return response?.Items;
     } catch (error) {
       throw new InternalServerErrorException(
         'Ha ocurrido un error al obtener un elemento de dynamo.',

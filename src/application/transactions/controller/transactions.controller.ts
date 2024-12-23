@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Post, Res, UseInterceptors } from '@nestjs/common';
 
 import { Response } from 'express';
 
@@ -6,12 +6,14 @@ import { CreateTransactionDto } from '../dto/create-transaction.dto';
 import { DynamoDBAdapter } from 'src/infrastructure/dynamodb/dynamodb.adapter';
 import { DynamoDBTransactionRepository } from 'src/infrastructure/transactions/dynamoDBClientTransactionRepository.adapter';
 import { CreateTransactionInteractor } from '../interactor/ensureTransaction.interactor';
+import { CreateClientInterceptor } from 'src/application/clients/interceptor/create-client.interceptor';
 
 @Controller('api/transactions')
 export class TransactionsController {
   constructor(private readonly dynamoDbAdapter: DynamoDBAdapter) {}
 
   @Post('create')
+  @UseInterceptors(CreateClientInterceptor)
   async create(
     @Body() transaction: CreateTransactionDto,
     @Res() res: Response,

@@ -10,10 +10,10 @@ export class EnsureClientInteractor {
     clientDto: CreateClientDto,
   ): Promise<PutItemCommandOutput | undefined> {
     const existingClient = await this.clientRepository.findClientByName(
-      clientDto?.name,
+      clientDto?.nameClient,
     );
 
-    if (existingClient) return;
+    if (existingClient?.length) return;
 
     return await this.clientRepository.createClient(clientDto);
   }
