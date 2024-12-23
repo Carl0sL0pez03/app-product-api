@@ -3,10 +3,10 @@ import { Body, Controller, Post, Res, UseInterceptors } from '@nestjs/common';
 import { Response } from 'express';
 
 import { CreateTransactionDto } from '../dto/create-transaction.dto';
-import { DynamoDBAdapter } from 'src/infrastructure/dynamodb/dynamodb.adapter';
-import { DynamoDBTransactionRepository } from 'src/infrastructure/transactions/dynamoDBClientTransactionRepository.adapter';
+import { DynamoDBAdapter } from '../../../infrastructure/dynamodb/dynamodb.adapter';
+import { DynamoDBTransactionRepository } from '../../../infrastructure/transactions/dynamoDBClientTransactionRepository.adapter';
 import { CreateTransactionInteractor } from '../interactor/ensureTransaction.interactor';
-import { CreateClientInterceptor } from 'src/application/clients/interceptor/create-client.interceptor';
+import { CreateClientInterceptor } from '../../../application/clients/interceptor/create-client.interceptor';
 
 @Controller('api/transactions')
 export class TransactionsController {

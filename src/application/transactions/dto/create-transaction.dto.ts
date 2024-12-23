@@ -39,7 +39,7 @@ export class CreateTransactionDto {
 
   @IsString()
   @IsOptional()
-  state: number;
+  state?: string;
 
   @IsBoolean()
   @IsOptional()
