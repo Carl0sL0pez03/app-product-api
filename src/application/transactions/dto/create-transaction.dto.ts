@@ -10,6 +10,7 @@ import {
 } from 'class-validator';
 
 import { IProduct } from 'src/application/products/interface/product.interface';
+import { IPaymentDetails } from '../interface/transaction.interface';
 
 export class CreateTransactionDto {
   @IsOptional()
@@ -43,4 +44,7 @@ export class CreateTransactionDto {
   @IsBoolean()
   @IsOptional()
   wasSuccessfulPayment: boolean;
+
+  @IsOptional()
+  paymentDetails?: IPaymentDetails;
 }
